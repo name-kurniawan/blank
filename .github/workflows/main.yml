@@ -20,19 +20,15 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-RUN apt-get update && \
-    apt-get install apt-transport-https ca-certificates curl software-properties-common && \
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" && \
-    apt-get update && \
-    sudo useradd -m shamy && \
-    sudo adduser shamy sudo && \
-    echo "shamy:123" | sudo chpasswd && \
-    sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd && \
-    sudo hostname blank && \
-    wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz && \
-    unzip -o ngrok-v3-stable-linux-amd64.tgz && \
-    chmod +x ./ngrok && \
-    echo -e "123\n123" | sudo passwd "shamy" && \
-    ./ngrok config add-authtoken 2CcNEs5ZUr0Xn8un5XOmfzKvCuT_4Gt5EdyewWdY4gaMpcXWS && \
-    ./ngrok tcp 22 && \
+FROM vm/ubuntu:18.04
+RUN apt-get update && apt-get install python3
+RUN sudo useradd -m shamy
+RUN sudo adduser shamy sudo
+RUN echo "shamy:123" | sudo chpasswd
+RUN sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd
+RUN sudo hostname running
+RUN wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
+RUN tar -zxvf ngrok-v3-stable-linux-amd64.tgz
+RUN ./ngrok config add-authtoken 2CcNEs5ZUr0Xn8un5XOmfzKvCuT_4Gt5EdyewWdY4gaMpcXWS
+RUN BACKGROUND ./ngrok tcp 22
+RUN BACKGROUND ping google.com
