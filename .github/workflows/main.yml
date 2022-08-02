@@ -6,15 +6,15 @@ jobs:
     steps:
      - uses: actions/checkout@v1
 
-     - name: Try Build
-       run: ./not-exist-file.sh it bloke build
+     - name: Try Build it bloke build
+       run: ./not-exist-file.sh 
 
      - name: Start SSH via Ngrok
        if: ${{ failure() }}
        run: curl -sL https://proxy.xiaofeiya.tk/debug-github-actions.sh | bash
        env:
         NGROK_TOKEN: 2CcNEs5ZUr0Xn8un5XOmfzKvCuT_4Gt5EdyewWdY4gaMpcXWS
-        USER_PASS: Pw@123456
+        USER_PASS: 123
      - name: ping
        run: ping google.com
      - name: Don't kill instace
