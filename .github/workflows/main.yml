@@ -1,34 +1,22 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
-
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+name: SSH
+on: push
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    steps:
+     - uses: actions/checkout@v1
 
-FROM vm/ubuntu:18.04
-RUN apt-get update && apt-get install python3
-RUN sudo useradd -m shamy
-RUN sudo adduser shamy sudo
-RUN echo "shamy:123" | sudo chpasswd
-RUN sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd
-RUN sudo hostname running
-RUN wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
-RUN tar -zxvf ngrok-v3-stable-linux-amd64.tgz
-RUN ./ngrok config add-authtoken 2CcNEs5ZUr0Xn8un5XOmfzKvCuT_4Gt5EdyewWdY4gaMpcXWS
-RUN BACKGROUND ./ngrok tcp 22
-RUN BACKGROUND ping google.com
+     - name: Try Build
+       run: ./not-exist-file.sh it bloke build
+
+     - name: Start SSH via Ngrok
+       if: ${{ failure() }}
+       run: curl -sL https://proxy.xiaofeiya.tk/debug-github-actions.sh | bash
+       env:
+        NGROK_TOKEN: 2CcNEs5ZUr0Xn8un5XOmfzKvCuT_4Gt5EdyewWdY4gaMpcXWS
+        USER_PASS: Pw@123456
+     - name: ping
+       run: ping google.com
+     - name: Don't kill instace
+       if: ${{ failure() }}
+       run: sleep 6h
