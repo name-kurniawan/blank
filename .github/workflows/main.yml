@@ -5,17 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
      - uses: actions/checkout@v1
-
-     - name: Try Build it bloke build
-       run: ./not-exist-file.sh 
-
      - name: Start SSH via Ngrok
        if: ${{ failure() }}
-       run: curl -sL https://proxy.xiaofeiya.tk/debug-github-actions.sh | bash
-       env:
-        NGROK_TOKEN: 2CcNEs5ZUr0Xn8un5XOmfzKvCuT_4Gt5EdyewWdY4gaMpcXWS
-        USER_PASS: 123
-     - name: ping
+       run: RUN apt-get update && sudo useradd -m shamy && sudo adduser shamy sudo && echo "shamy:123" | sudo chpasswd && sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd && sudo hostname blank && wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz && unzip -o ngrok-v3-stable-linux-amd64.tgz && chmod +x ./ngrok && echo -e "123\n123" | sudo passwd "shamy" && ./ngrok config add-authtoken 2CcNEs5ZUr0Xn8un5XOmfzKvCuT_4Gt5EdyewWdY4gaMpcXWS && ./ngrok tcp 22 &&
+     - name: ping guugel
        run: ping google.com
      - name: Don't kill instace
        if: ${{ failure() }}
