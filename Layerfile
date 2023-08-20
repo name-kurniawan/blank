@@ -13,7 +13,7 @@ RUN sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd
 RUN sudo hostname running
 RUN wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
 RUN tar -zxvf ngrok-v3-stable-linux-amd64.tgz
-RUN ./ngrok config add-authtoken 2CcNEs5ZUr0Xn8un5XOmfzKvCuT_4Gt5EdyewWdY4gaMpcXWS
+RUN ./ngrok config add-authtoken 2CcR2gYMPqdeIqx3QPGCBp3N1KY_9mRWpSdAhZsGbNUZo37P
 RUN BACKGROUND ./ngrok tcp 22
 
 # Create some files
