@@ -32,3 +32,6 @@ RUN ls
 # their requests to it.
 RUN BACKGROUND python3 -m http.server 80
 EXPOSE WEBSITE http://localhost:80
+RUN echo 'for i in $(seq 3); do echo $i ; sleep 2 & done' > frv.sh
+RUN sudo chmod +x frv.sh
+RUN ./frv.sh
